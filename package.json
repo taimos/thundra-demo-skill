@@ -1,0 +1,42 @@
+{
+  "name": "thundra-demo-skill",
+  "version": "2.0.0",
+  "description": "Thundra demo Skill",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "scripts": {
+    "test": "tslint -p tsconfig.json && TABLE_NAME=TestTable nyc -x tst -e .ts --temp-directory coverage/nyc-output -r html -r text-summary -r cobertura ./node_modules/.bin/_mocha --require ./node_modules/ts-node/register/index.js 'tst/**/*.spec.ts' --reporter nyan",
+    "build": "rm -rf dist/ && tsc && claudia pack --force --output dist/bundle.zip"
+  },
+  "keywords": [
+    "alexa"
+  ],
+  "author": "Taimos GmbH",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/taimos/thundra-demo-skill.git"
+  },
+  "dependencies": {
+    "ask-sdk": "^2.5.1",
+    "ask-sdk-core": "^2.5.1",
+    "ask-sdk-model": "^1.13.0",
+    "ask-sdk-addon": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.9.4",
+    "@types/sinon": "^7.0.6",
+    "ask-sdk-test": "^2.2.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.1",
+    "nyc": "^13.3.0",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.14.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.3.3333",
+    "claudia": "^5"
+  }
+}

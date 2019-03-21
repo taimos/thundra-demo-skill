@@ -1,0 +1,33 @@
+Description: The Alexa Skill thundra-demo
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  AttributesTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+  SkillFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./dist/bundle.zip
+      Handler: dist/index2.handler
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref AttributesTable
+          thundra_apiKey: 1234567890
+      Runtime: provided
+      Layers:
+        - !Sub 'arn:aws:lambda:${AWS::Region}:269863060030:layer:thundra-lambda-node-layer:9'
+      Policies:
+        - Statement:
+            Action:
+              - dynamodb:Get*
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+            Effect: Allow
+            Resource: !Sub arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${AttributesTable}
+      Timeout: 10
+      Events:
+        Alexa:
+          Type: AlexaSkill
